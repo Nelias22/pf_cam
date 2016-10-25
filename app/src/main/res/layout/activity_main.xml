@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/ImgPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/tama"
+        android:layout_weight="0.10" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.90">
+
+
+        <Button
+            android:text="EDITAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtnStudio"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/BtnSelectImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOMAR FOTO"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtnGallery"
+            android:layout_weight="1"
+            android:text="GALERÍA"/>
+    </LinearLayout>
+
+
+</LinearLayout>
