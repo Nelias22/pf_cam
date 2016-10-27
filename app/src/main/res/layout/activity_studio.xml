@@ -35,46 +35,12 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="250px"
-                android:layout_height="250px"
-                app:srcCompat="@drawable/ic_launcher"
-                android:id="@+id/imageView7"
+                android:layout_width="256px"
+                android:layout_height="256px"
+                app:srcCompat="@drawable/winterhat"
+                android:id="@+id/btnSticker"
                 android:layout_weight="1" />
 
-            <ImageView
-                android:layout_width="250px"
-                android:layout_height="250px"
-                app:srcCompat="@drawable/ic_launcher"
-                android:id="@+id/imageView2"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="250px"
-                android:layout_height="250px"
-                app:srcCompat="@drawable/ic_launcher"
-                android:id="@+id/imageView3"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="250px"
-                android:layout_height="250px"
-                app:srcCompat="@drawable/ic_launcher"
-                android:id="@+id/imageView4"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="250px"
-                android:layout_height="250px"
-                app:srcCompat="@drawable/ic_launcher"
-                android:id="@+id/imageView5"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="250px"
-                android:layout_height="250px"
-                app:srcCompat="@drawable/ic_launcher"
-                android:id="@+id/imageView6"
-                android:layout_weight="1" />
         </LinearLayout>
     </HorizontalScrollView>
 

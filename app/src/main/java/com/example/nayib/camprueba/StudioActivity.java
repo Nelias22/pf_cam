@@ -9,8 +9,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class StudioActivity extends AppCompatActivity {
 
@@ -21,12 +23,19 @@ public class StudioActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ImageView studioImg= (ImageView) findViewById(R.id.studioImg);
         setSupportActionBar(toolbar);
+        studioImg.setImageBitmap(null);
 
         Intent data = getIntent();
-        byte[] bytes = data.getByteArrayExtra("BMP");
-        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-        studioImg.setImageBitmap(bmp );
+        /*byte[] bytes = data.getByteArrayExtra("BMP");
+        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        studioImg.setImageBitmap(bmp);*/
+
+        String path=data.getStringExtra("src");
+        studioImg.setImageBitmap(BitmapFactory.decodeFile(path));
+
+
+        //Toast.makeText(this, "I changed the picture", Toast.LENGTH_SHORT).show();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +45,16 @@ public class StudioActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            finish();
+            Toast.makeText(this, "I finished the activity", Toast.LENGTH_LONG).show();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

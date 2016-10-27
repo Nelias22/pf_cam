@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
     // Aquí definimos los resultados del intent, los números son random (creo)
     private static final int CAMERA_PIC_REQUEST = 22;
     private static final int RESULT_LOAD_IMAGE = 33 ;
+    private static final int LOAD_FOR_EDIT= 44 ;
 
     Uri cameraUri;
     //Definiciones de los botones para los OnClickListener
@@ -46,6 +47,7 @@ public class MainActivity extends Activity {
     private ImageView ImgPhoto;
     Uri mLocationForPhotos= Images.Media.EXTERNAL_CONTENT_URI;
     File filepath =Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES);
+    String currentImgPath = null;
 
 
 
@@ -102,15 +104,28 @@ public class MainActivity extends Activity {
                 // TODO Auto-generated method stub
                 try {  //Llamamos a la actividad del estudio y le pasamos la imagen.
 
-                    ImgPhoto.buildDrawingCache();
+                    if(currentImgPath==null){
+                        Toast.makeText(MainActivity.this, "Por favor, toma o selecciona una foto.", Toast.LENGTH_LONG).show();
+                    }else{
+                        //Toast.makeText(MainActivity.this, currentImgPath, Toast.LENGTH_SHORT).show();
+                        Intent studioIntent = new Intent(getApplicationContext(),StudioActivity.class);
+                        studioIntent.putExtra("src",currentImgPath);
+                        startActivity(studioIntent);
+                    }
+
+                    /*ImgPhoto.buildDrawingCache();
                     Bitmap image= ImgPhoto.getDrawingCache();
+                    Toast.makeText(MainActivity.this, "get drawing cache", Toast.LENGTH_SHORT).show();
                     Intent studioIntent = new Intent(getApplicationContext(),StudioActivity.class);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     image.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] bytes = stream.toByteArray();
+                    Toast.makeText(MainActivity.this, "asign byte array", Toast.LENGTH_SHORT).show();
                     stream.close();
                     studioIntent.putExtra("BMP",bytes);
-                    startActivity(studioIntent);
+                    Toast.makeText(MainActivity.this, "I put the extra", Toast.LENGTH_SHORT).show();
+
+                    startActivity(studioIntent); //ForResult(studioIntent,LOAD_FOR_EDIT);*/
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Couldn't open studio", Toast.LENGTH_LONG).show();
@@ -167,6 +182,7 @@ public class MainActivity extends Activity {
                                             Log.i("ExternalStorage", "-> uri=" + uri);
                                         }
                                     });
+                            currentImgPath=file.getPath();
 
                         } catch (Exception e) {
                             Toast.makeText(this, "Couldn't load photo", Toast.LENGTH_LONG).show();
@@ -182,12 +198,23 @@ public class MainActivity extends Activity {
 
                                 ImgPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                                 //Creamos un Bitmap a partir de los datos de la imagen y la asignamos al ImageView
+                                currentImgPath=picturePath;
                             }
                         } catch (Exception e) {
                             Toast.makeText(this, "Couldn't load photo", Toast.LENGTH_LONG).show();
                         }
                     }
                     break;
+                /*case LOAD_FOR_EDIT:
+                    if (resultCode == RESULT_CANCELED) {
+                        try {
+                            finishActivity(LOAD_FOR_EDIT);
+                        }
+                        catch(Exception e){
+                            Toast.makeText(this, "Didn't work", Toast.LENGTH_LONG).show();
+                        };
+                    }
+                    break;*/
                 default:
                     break;
             }

@@ -13,20 +13,11 @@
     tools:context="com.example.nayib.camprueba.StudioActivity"
     tools:showIn="@layout/activity_studio">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        app:srcCompat="@drawable/tama"
+        android:id="@+id/studioImg"
+        android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/tama"
-            android:id="@+id/studioImg"
-            android:layout_weight="1" />
-
-
-    </LinearLayout>
 </RelativeLayout>
