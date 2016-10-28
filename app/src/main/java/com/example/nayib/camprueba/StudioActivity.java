@@ -12,16 +12,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class StudioActivity extends AppCompatActivity {
+import com.example.nayib.camprueba.view.StickerView;
 
+import java.util.ArrayList;
+
+
+public class StudioActivity extends AppCompatActivity {
+    RelativeLayout content_studio;
+    ImageView studioImg;
+    View mAddSticker;
+    StickerView mCurrentView;
+    ArrayList<View> mViews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ImageView studioImg= (ImageView) findViewById(R.id.studioImg);
+        studioImg= (ImageView) findViewById(R.id.studioImg);
+        content_studio= (RelativeLayout) findViewById(R.id.content_studio);
+        mAddSticker = findViewById(R.id.btnSticker);
+        mViews = new ArrayList<>();
         setSupportActionBar(toolbar);
         studioImg.setImageBitmap(null);
 
@@ -37,6 +50,13 @@ public class StudioActivity extends AppCompatActivity {
 
         //Toast.makeText(this, "I changed the picture", Toast.LENGTH_SHORT).show();
 
+        mAddSticker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addStickerView();
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,15 +66,47 @@ public class StudioActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if ((keyCode == KeyEvent.KEYCODE_BACK))
-        {
-            finish();
-            Toast.makeText(this, "I finished the activity", Toast.LENGTH_LONG).show();
+    private void addStickerView() {
+        final StickerView stickerView = new StickerView(this);
+        stickerView.setImageResource(R.drawable.winterhat);
+        stickerView.setOperationListener(new StickerView.OperationListener() {
+            @Override
+            public void onDeleteClick() {
+                mViews.remove(stickerView);
+                content_studio.removeView(stickerView);
+            }
+
+            @Override
+            public void onEdit(StickerView stickerView) {
+
+                mCurrentView.setInEdit(false);
+                mCurrentView = stickerView;
+                mCurrentView.setInEdit(true);
+            }
+
+            @Override
+            public void onTop(StickerView stickerView) {
+                int position = mViews.indexOf(stickerView);
+                if (position == mViews.size() - 1) {
+                    return;
+                }
+                StickerView stickerTemp = (StickerView) mViews.remove(position);
+                mViews.add(mViews.size(), stickerTemp);
+            }
+        });
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        content_studio.addView(stickerView, lp);
+        mViews.add(stickerView);
+        setCurrentEdit(stickerView);
+    }
+
+    private void setCurrentEdit(StickerView stickerView) {
+        if (mCurrentView != null) {
+            mCurrentView.setInEdit(false);
         }
-        return super.onKeyDown(keyCode, event);
+
+        mCurrentView = stickerView;
+        stickerView.setInEdit(true);
     }
 
 }

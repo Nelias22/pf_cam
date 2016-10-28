@@ -35,9 +35,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="256px"
-                android:layout_height="256px"
-                app:srcCompat="@drawable/winterhat"
+                android:layout_width="128px"
+                android:layout_height="128px"
+                app:srcCompat="@drawable/winter128"
                 android:id="@+id/btnSticker"
                 android:layout_weight="1" />
 
