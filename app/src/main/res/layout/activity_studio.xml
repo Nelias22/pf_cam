@@ -41,6 +41,13 @@
                 android:id="@+id/btnSticker"
                 android:layout_weight="1" />
 
+            <ImageView
+                android:layout_width="128px"
+                android:layout_height="128px"
+                android:id="@+id/btnStickVisor"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/visor128" />
+
         </LinearLayout>
     </HorizontalScrollView>
 

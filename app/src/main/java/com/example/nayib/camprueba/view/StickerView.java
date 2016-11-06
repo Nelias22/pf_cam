@@ -99,7 +99,7 @@ public class StickerView extends ImageView {
     /**
      * 是否在编辑模式
      */
-    private boolean isInEdit = true;
+    public boolean isInEdit = true;
 
     private float MIN_SCALE = 0.5f;
 
