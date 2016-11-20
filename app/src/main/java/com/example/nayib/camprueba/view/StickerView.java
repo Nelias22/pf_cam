@@ -174,25 +174,25 @@ public class StickerView extends ImageView {
             canvas.save();
             canvas.drawBitmap(mBitmap, matrix, null);
             //删除在右上角
-            dst_delete.left = (int) (f3 - deleteBitmapWidth / 2);
-            dst_delete.right = (int) (f3 + deleteBitmapWidth / 2);
-            dst_delete.top = (int) (f4 - deleteBitmapHeight / 2);
-            dst_delete.bottom = (int) (f4 + deleteBitmapHeight / 2);
+            dst_delete.left = (int) (f3 - deleteBitmapWidth / 4);
+            dst_delete.right = (int) (f3 + deleteBitmapWidth / 4);
+            dst_delete.top = (int) (f4 - deleteBitmapHeight / 4);
+            dst_delete.bottom = (int) (f4 + deleteBitmapHeight / 4);
             //拉伸等操作在右下角
-            dst_resize.left = (int) (f7 - resizeBitmapWidth / 2);
-            dst_resize.right = (int) (f7 + resizeBitmapWidth / 2);
-            dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
-            dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
+            dst_resize.left = (int) (f7 - resizeBitmapWidth / 4);
+            dst_resize.right = (int) (f7 + resizeBitmapWidth / 4);
+            dst_resize.top = (int) (f8 - resizeBitmapHeight / 4);
+            dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 4);
             //垂直镜像在左上角
-            dst_top.left = (int) (f1 - flipVBitmapWidth / 2);
-            dst_top.right = (int) (f1 + flipVBitmapWidth / 2);
-            dst_top.top = (int) (f2 - flipVBitmapHeight / 2);
-            dst_top.bottom = (int) (f2 + flipVBitmapHeight / 2);
+            dst_top.left = (int) (f1 - flipVBitmapWidth / 4);
+            dst_top.right = (int) (f1 + flipVBitmapWidth / 4);
+            dst_top.top = (int) (f2 - flipVBitmapHeight / 4);
+            dst_top.bottom = (int) (f2 + flipVBitmapHeight / 4);
             //水平镜像在左下角
-            dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
-            dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
-            dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
-            dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
+            dst_flipV.left = (int) (f5 - topBitmapWidth / 4);
+            dst_flipV.right = (int) (f5 + topBitmapWidth / 4);
+            dst_flipV.top = (int) (f6 - topBitmapHeight / 4);
+            dst_flipV.bottom = (int) (f6 + topBitmapHeight / 4);
             if (isInEdit) {
 
                 canvas.drawLine(f1, f2, f3, f4, localPaint);

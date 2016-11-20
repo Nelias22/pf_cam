@@ -51,26 +51,22 @@ public class StudioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studio);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         studioImg= (ImageView) findViewById(R.id.studioImg);
         content_studio= (RelativeLayout) findViewById(R.id.content_studio);
         mAddSticker = findViewById(R.id.btnSticker);
         visorSticker = findViewById(R.id.btnStickVisor);
         mViews = new ArrayList<>();
-        setSupportActionBar(toolbar);
+
         studioImg.setImageBitmap(null);
 
         Intent data = getIntent();
-
-        /*byte[] bytes = data.getByteArrayExtra("BMP");
-        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        studioImg.setImageBitmap(bmp);*/
-
         String path=data.getStringExtra("src");
         studioImg.setImageBitmap(BitmapFactory.decodeFile(path));
 
 
-        //Toast.makeText(this, "I changed the picture", Toast.LENGTH_SHORT).show();
+
+        //Aquí van los onClickListener de cada sticker
 
         mAddSticker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +88,11 @@ public class StudioActivity extends AppCompatActivity {
             public void onClick(View view) {
                 generateBitmap();
 
-                DialogFragment newFragment = new UploadDialogFragment();
-                Bundle datos =new Bundle();
-                datos.putString("foto",editedPath);
-                newFragment.setArguments(datos);
-                newFragment.show(getFragmentManager(), "upload");
-                Snackbar.make(view, "Generated Bitmap", Snackbar.LENGTH_LONG)
+                Intent UploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+                UploadIntent.putExtra("foto",editedPath);
+                Snackbar.make(view, "Se ha guardado la imagen", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                startActivity(UploadIntent);
             }
         });
     }

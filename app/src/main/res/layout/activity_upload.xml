@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:weightSum="1"
+    android:background="@drawable/background">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/tama"
+        android:id="@+id/imgUpload"
+        android:layout_weight="0.50" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.50">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:text="SUBIR FOTO"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/text1"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="Escribe un mensaje (opcional):"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editText2"
+                android:layout_weight="1"
+                android:backgroundTint="#FFFFFF"
+                android:background="#FFFFFF"
+                android:cursorVisible="true"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:text="¿Cual de nuestros gatos sale en la foto?"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                android:textAlignment="center" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:id="@+id/spinner2"
+                android:layout_weight="1"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:text="Súbela a tus redes sociales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal|center"
+                android:layout_gravity="bottom">
+
+                <Button
+                    android:id="@+id/btnFacebook"
+                    android:background="@drawable/facebook"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_gravity="left|start" />
+
+                <com.facebook.share.widget.ShareButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fb_share_button"
+                    android:text="SHARE"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                     />
+
+                <Button
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:id="@+id/button3"
+                    android:background="@drawable/twitter"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_gravity="right|end" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

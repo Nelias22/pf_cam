@@ -29,7 +29,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -44,6 +47,9 @@ public class MainActivity extends Activity {
     Button BtnSelectImg;
     Button BtnGallery;
     Button BtnStudio;
+    TextView TxtSelectImg;
+    TextView TxtGallery;
+    TextView TxtStudio;
     private ImageView ImgPhoto;
     Uri mLocationForPhotos= Images.Media.EXTERNAL_CONTENT_URI;
     File filepath =Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES);
@@ -58,30 +64,29 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Inicializar Facebook
+        //FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
         super.onCreate(savedInstanceState);
-        //Toast.makeText(getApplicationContext(), mLocationForPhotos.getPath(), Toast.LENGTH_LONG).show();
+
         setContentView(R.layout.activity_main);
         //Asignar los elementos del layout
         ImgPhoto = (ImageView) findViewById(R.id.ImgPhoto);
         BtnSelectImg = (Button) findViewById(R.id.BtnSelectImg);
         BtnGallery=(Button) findViewById(R.id.BtnGallery);
         BtnStudio=(Button) findViewById(R.id.BtnStudio);
+        TxtSelectImg = (TextView) findViewById(R.id.TxtSelectImg);
+        TxtGallery=(TextView) findViewById(R.id.TxtGallery);
+        TxtStudio=(TextView) findViewById(R.id.TxtStudio);
+
         //OnClickListener para tomar la foto
         BtnSelectImg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO Auto-generated method stub
-                try {  //Llamamos a la cámara con un intent y esperamos la foto.
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    //generateImgName();
-
-                    //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(mLocationForPhotos, targetFilename));
-                    if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Couldn't load camera", Toast.LENGTH_LONG).show();
-                }
+               openCamera();
             }
         });
         //OnClickListener para abrir la galería
@@ -89,12 +94,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // TODO Auto-generated method stub
-                try {  //Llamamos a la galería y esperamos que el usuario escoja una foto.
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, mLocationForPhotos);
-                    startActivityForResult(galleryIntent,RESULT_LOAD_IMAGE);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Couldn't load photo", Toast.LENGTH_LONG).show();
-                }
+               openGallery();
             }
         });
         //OnClickListener para abrir nuestro estudio de edición.
@@ -102,36 +102,37 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // TODO Auto-generated method stub
-                try {  //Llamamos a la actividad del estudio y le pasamos la imagen.
-
-                    if(currentImgPath==null){
-                        Toast.makeText(MainActivity.this, "Por favor, toma o selecciona una foto.", Toast.LENGTH_LONG).show();
-                    }else{
-                        //Toast.makeText(MainActivity.this, currentImgPath, Toast.LENGTH_SHORT).show();
-                        Intent studioIntent = new Intent(getApplicationContext(),StudioActivity.class);
-                        studioIntent.putExtra("src",currentImgPath);
-                        startActivity(studioIntent);
-                    }
-
-                    /*ImgPhoto.buildDrawingCache();
-                    Bitmap image= ImgPhoto.getDrawingCache();
-                    Toast.makeText(MainActivity.this, "get drawing cache", Toast.LENGTH_SHORT).show();
-                    Intent studioIntent = new Intent(getApplicationContext(),StudioActivity.class);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] bytes = stream.toByteArray();
-                    Toast.makeText(MainActivity.this, "asign byte array", Toast.LENGTH_SHORT).show();
-                    stream.close();
-                    studioIntent.putExtra("BMP",bytes);
-                    Toast.makeText(MainActivity.this, "I put the extra", Toast.LENGTH_SHORT).show();
-
-                    startActivity(studioIntent); //ForResult(studioIntent,LOAD_FOR_EDIT);*/
-
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Couldn't open studio", Toast.LENGTH_LONG).show();
-                }
+               openStudio();
             }
         });
+
+        //Para que el texto también funcione como botón
+
+        //OnClickListener para tomar la foto
+        TxtSelectImg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                openCamera();
+            }
+        });
+        //OnClickListener para abrir la galería
+        TxtGallery.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                openGallery();
+            }
+        });
+        //OnClickListener para abrir nuestro estudio de edición.
+        TxtStudio.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                openStudio();
+            }
+        });
+
 
     }
 
@@ -245,11 +246,44 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void openGallery(){
+        try {  //Llamamos a la galería y esperamos que el usuario escoja una foto.
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, mLocationForPhotos);
+            startActivityForResult(galleryIntent,RESULT_LOAD_IMAGE);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Couldn't load photo", Toast.LENGTH_LONG).show();
+        }
+    }
+    private void openCamera(){
+        try {  //Llamamos a la cámara con un intent y esperamos la foto.
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            //generateImgName();
+
+            //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(mLocationForPhotos, targetFilename));
+            if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Couldn't load camera", Toast.LENGTH_LONG).show();
+        }
+    }
+    private void openStudio(){
+        try {  //Llamamos a la actividad del estudio y le pasamos la imagen.
+
+            if(currentImgPath==null){
+                Toast.makeText(MainActivity.this, "Por favor, toma o selecciona una foto.", Toast.LENGTH_LONG).show();
+            }else{
+                //Toast.makeText(MainActivity.this, currentImgPath, Toast.LENGTH_SHORT).show();
+                Intent studioIntent = new Intent(getApplicationContext(),StudioActivity.class);
+                studioIntent.putExtra("src",currentImgPath);
+                startActivity(studioIntent);
+            }
 
 
-
-
-
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Couldn't open studio", Toast.LENGTH_LONG).show();
+        }
+    }
 
 
 }
