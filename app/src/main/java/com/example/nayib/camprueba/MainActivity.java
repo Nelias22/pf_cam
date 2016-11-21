@@ -1,4 +1,7 @@
 package com.example.nayib.camprueba;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +40,11 @@ import com.facebook.appevents.AppEventsLogger;
 import static android.os.Environment.DIRECTORY_PICTURES;
 
 public class MainActivity extends Activity {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    public static final String TWITTER_KEY = "rmkbDACg05OnikTB5QEdhzXEl";
+    public static final String TWITTER_SECRET = "iVFBkrvt1QGP4K0IWApmg9oyJT4XNX0iMRmVp6wdV4823EIDtS";
+
     // Aquí definimos los resultados del intent, los números son random (creo)
     private static final int CAMERA_PIC_REQUEST = 22;
     private static final int RESULT_LOAD_IMAGE = 33 ;
@@ -70,6 +78,8 @@ public class MainActivity extends Activity {
         AppEventsLogger.activateApp(this);
 
         super.onCreate(savedInstanceState);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
 
         setContentView(R.layout.activity_main);
         //Asignar los elementos del layout

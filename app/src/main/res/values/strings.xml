@@ -3,4 +3,12 @@
     <string name="title_activity_studio">StudioActivity</string>
     <string name="facebook_app_id">595809413954798</string>
     <string name="fb_login_protocol_scheme">fb595809413954798</string>
+
+    <string-array name="gatos_array">
+        <item>Selecciona uno</item>
+        <item>Electrón</item>
+        <item>Acuarela</item>
+        <item>Maléfico</item>
+        <item>No lo conozco</item>
+    </string-array>
 </resources>
